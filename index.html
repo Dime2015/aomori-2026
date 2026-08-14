@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="青森 5 日自驾行程">
 <title>青森 5 日自驾</title>
 <style>
 :root{
@@ -36,53 +34,48 @@ body{background:var(--bg);color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans","Microsoft YaHei",Helvetica,sans-serif;
   font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
 
-/* ===== deck ===== */
 #deck{height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y proximity;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
-.slide{min-height:100vh;min-height:100dvh;scroll-snap-align:start;display:flex;flex-direction:column;
-  padding:calc(env(safe-area-inset-top) + 46px) calc(var(--pad) + env(safe-area-inset-right) + 14px) calc(env(safe-area-inset-bottom) + 56px) calc(var(--pad) + env(safe-area-inset-left));
+.slide{min-height:100vh;min-height:100dvh;scroll-snap-align:start;display:flex;flex-direction:column;position:relative;
+  padding:calc(env(safe-area-inset-top) + 44px) calc(var(--pad) + env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 52px) calc(var(--pad) + env(safe-area-inset-left));
   border-bottom:1px solid var(--line)}
 .slide:last-child{border-bottom:none}
-.in{width:100%;max-width:680px;margin:auto auto;min-width:0}
-.pn{position:absolute;top:calc(env(safe-area-inset-top) + 16px);left:calc(var(--pad) + env(safe-area-inset-left));
+.in{width:100%;max-width:660px;margin:auto auto;min-width:0}
+.pn{position:absolute;top:calc(env(safe-area-inset-top) + 15px);left:calc(var(--pad) + env(safe-area-inset-left));
   font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--text3)}
-.slide{position:relative}
 
-/* ===== rail ===== */
-#rail{position:fixed;right:calc(env(safe-area-inset-right) + 4px);top:50%;transform:translateY(-50%);
-  z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:8px 6px;
-  opacity:.3;transition:opacity .35s}
-#rail.show{opacity:1}
-#rail button{background:none;border:none;padding:6px 4px;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:8px;position:relative}
-#rail i{display:block;width:13px;height:2px;border-radius:2px;background:var(--text3);transition:width .2s,background .2s}
-#rail button[aria-current=true] i{width:24px;background:var(--text)}
-#rail .lbl{font-size:12px;color:var(--text2);white-space:nowrap;opacity:0;transform:translateX(6px);
-  transition:opacity .25s,transform .25s;pointer-events:none;background:var(--bg);padding:1px 6px;border-radius:3px}
-#rail.show button[aria-current=true] .lbl{opacity:1;transform:none;color:var(--text);font-weight:600}
-#rail.show button:active .lbl{opacity:1;transform:none}
-#pgn{position:fixed;right:calc(env(safe-area-inset-right) + 8px);top:calc(env(safe-area-inset-top) + 14px);
-  z-index:60;font-family:var(--mono);font-size:11px;color:var(--text3);opacity:0;transition:opacity .35s}
+/* rail — 完全隐藏，滑动或碰右边缘才出现 */
+#railzone{position:fixed;right:0;top:0;bottom:0;width:26px;z-index:55}
+#rail{position:fixed;right:calc(env(safe-area-inset-right) + 5px);top:50%;z-index:60;
+  display:flex;flex-direction:column;align-items:flex-end;gap:1px;padding:6px 4px;
+  opacity:0;transform:translateY(-50%) translateX(14px);pointer-events:none;
+  transition:opacity .3s ease,transform .3s ease}
+#rail.show{opacity:1;transform:translateY(-50%) translateX(0);pointer-events:auto}
+#rail button{background:none;border:none;padding:7px 3px;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+#rail i{display:block;width:12px;height:2px;border-radius:2px;background:var(--text3);transition:width .2s,background .2s}
+#rail button[aria-current=true] i{width:22px;background:var(--text)}
+#rail .lbl{font-size:12px;color:var(--text2);white-space:nowrap;opacity:0;transition:opacity .2s;
+  background:var(--bg);padding:1px 6px;border-radius:3px;pointer-events:none}
+#rail.show button[aria-current=true] .lbl{opacity:1;color:var(--text);font-weight:600}
+#pgn{position:fixed;right:calc(env(safe-area-inset-right) + 8px);top:calc(env(safe-area-inset-top) + 13px);
+  z-index:60;font-family:var(--mono);font-size:11px;color:var(--text3);opacity:0;transition:opacity .3s}
 #pgn.show{opacity:1}
-@media(min-width:760px){ #rail{right:calc(env(safe-area-inset-right) + 12px)} }
 
-/* ===== type ===== */
-.icon{font-size:56px;line-height:1;margin:0 0 10px}
-h1{font-size:clamp(30px,8.5vw,40px);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:0 0 18px}
+.icon{font-size:54px;line-height:1;margin:0 0 10px}
+h1{font-size:clamp(29px,8.4vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:0 0 18px}
 h2{font-size:clamp(21px,5.6vw,25px);font-weight:600;letter-spacing:-.015em;margin:0 0 4px}
-h2+.sub{color:var(--text2);font-size:14px;margin:0 0 16px}
-h3{font-size:16px;font-weight:600;margin:20px 0 4px}
+h2+.sub{color:var(--text2);font-size:14px;margin:0 0 14px}
 p{margin:2px 0 10px}
 .dim{color:var(--text2)}.sm{font-size:14px}
 small{font-size:12.5px;color:var(--text2)}
 a{color:inherit;text-decoration:none;border-bottom:.05em solid rgba(120,119,116,.45)}
 code{font-family:var(--mono);font-size:.85em;background:var(--chip);border-radius:3px;padding:1px 5px;color:var(--tr)}
 ul{padding-left:20px;margin:6px 0 10px}li{margin:4px 0}
-hr{border:none;border-top:1px solid var(--line);margin:18px 0}
 
 .prop{display:flex;gap:8px;padding:4px 0;font-size:14px}
-.prop .k{flex:none;width:82px;color:var(--text2)}
+.prop .k{flex:none;width:78px;color:var(--text2)}
 .prop .v{flex:1;min-width:0}
 
-.co{display:flex;gap:9px;padding:13px 14px;border-radius:4px;margin:10px 0;font-size:14.5px;background:var(--gray)}
+.co{display:flex;gap:9px;padding:12px 13px;border-radius:4px;margin:10px 0;font-size:14px;background:var(--gray)}
 .co .ic{flex:none;font-size:16px;line-height:1.4}
 .co .bd{flex:1;min-width:0}
 .co .bd>:first-child{margin-top:0}.co .bd>:last-child{margin-bottom:0}
@@ -107,37 +100,49 @@ details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"▶";flex:none;font-size:10px;color:var(--text3);transition:transform .15s;margin-top:6px}
 details[open]>summary::before{transform:rotate(90deg)}
 
-/* ===== map ===== */
-.mapwrap{border:1px solid var(--line);border-radius:4px;overflow-x:auto;margin:10px 0;-webkit-overflow-scrolling:touch}
-.mapwrap svg{display:block;width:100%;min-width:600px;height:auto}
-.mapwrap.mini svg{min-width:560px}
-.mhint{font-size:11.5px;color:var(--text3);text-align:center;margin:-4px 0 8px}
-.ml{font-family:-apple-system,"PingFang SC","Hiragino Sans",sans-serif;fill:var(--text2);font-size:12.5px}
-.ml.s{font-size:11px;fill:var(--text3)}
-.ml.h{font-size:12.5px;font-weight:600;fill:var(--text)}
-svg .lay{transition:opacity .18s;cursor:pointer}
+/* map — 完整显示，不横向滚动 */
+.mapwrap{border:1px solid var(--line);border-radius:4px;overflow:hidden;margin:10px 0;background:var(--bg)}
+.mapwrap svg{display:block;width:100%;height:auto}
+#mapfull{display:none}
+.ml{font-family:-apple-system,"PingFang SC","Hiragino Sans",sans-serif;fill:var(--text2);font-size:calc(12.5px * var(--k,1))}
+.ml.s{font-size:calc(11px * var(--k,1))}
+.ml.h{font-size:calc(12.5px * var(--k,1));font-weight:600;fill:var(--text)}
+svg[data-f="1"] .lay:not([data-day="1"]) .ml,svg[data-f="2"] .lay:not([data-day="2"]) .ml,
+svg[data-f="3"] .lay:not([data-day="3"]) .ml,svg[data-f="4"] .lay:not([data-day="4"]) .ml,
+svg[data-f="5"] .lay:not([data-day="5"]) .ml,
+svg[data-f="1"] .lay:not([data-day="1"]) rect,svg[data-f="2"] .lay:not([data-day="2"]) rect,
+svg[data-f="3"] .lay:not([data-day="3"]) rect,svg[data-f="4"] .lay:not([data-day="4"]) rect,
+svg[data-f="5"] .lay:not([data-day="5"]) rect{display:none}
 svg[data-f="1"] .lay:not([data-day="1"]),svg[data-f="2"] .lay:not([data-day="2"]),
 svg[data-f="3"] .lay:not([data-day="3"]),svg[data-f="4"] .lay:not([data-day="4"]),
-svg[data-f="5"] .lay:not([data-day="5"]){opacity:.1}
-svg[data-f] .deco{display:none}
+svg[data-f="5"] .lay:not([data-day="5"]){opacity:.13}
 
-.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0}
-.tabs button{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--text2);
-  padding:7px 12px;cursor:pointer;border-radius:4px;min-height:36px}
-.tabs button[aria-selected=true]{color:var(--bg);background:var(--text);border-color:var(--text);font-weight:600}
+/* 日期筛选 = 图例 */
+.keys{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 4px}
+.keys button{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line);color:var(--text2);
+  padding:6px 10px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:6px;min-height:34px}
+.keys button s{display:block;width:14px;height:3px;border-radius:2px;text-decoration:none}
+.keys button[aria-selected=true]{border-color:var(--text);color:var(--text);font-weight:600;background:var(--hover)}
 
-/* ===== stops ===== */
-.stop{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line)}
+/* 日卡片 */
+.dc{border:1px solid var(--line);border-left:3px solid var(--dc,var(--line));border-radius:4px;margin:7px 0}
+.dc>summary{padding:11px 12px;margin:0;border-radius:0}
+.dn{font-weight:600;font-size:15px}
+.dn span{color:var(--text2);font-weight:400;font-size:13px;margin-left:5px}
+.dt2{font-size:13px;color:var(--text2);margin-top:2px}
+.dm{margin-top:5px}
+.dc .body{padding:2px 12px 12px;border-top:1px solid var(--line)}
+
+.stop{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
 .stop:last-child{border-bottom:none}
-.stop .t{flex:none;width:42px;font-family:var(--mono);font-size:11.5px;color:var(--text3);padding-top:3px}
+.stop .t{flex:none;width:40px;font-family:var(--mono);font-size:11px;color:var(--text3);padding-top:3px}
 .stop .c{flex:1;min-width:0}
-.stop b.h{font-size:14.5px;font-weight:600}
-.stop .jp{font-weight:400;font-size:11.5px;color:var(--text3);margin-left:4px}
-.stop p{margin:3px 0 0;font-size:14px;color:var(--text2)}
+.stop b.h{font-size:14px;font-weight:600}
+.stop .jp{font-weight:400;font-size:11px;color:var(--text3);margin-left:4px}
+.stop p{margin:3px 0 0;font-size:13.5px;color:var(--text2)}
 .stop p b{color:var(--text)}
-.leg{margin:0 0 0 53px;padding:2px 0;font-size:11.5px;color:var(--text3);font-family:var(--mono)}
+.leg{margin:0 0 0 50px;padding:2px 0;font-size:11px;color:var(--text3);font-family:var(--mono)}
 
-/* ===== hotels ===== */
 .hgrid{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
 @media(min-width:620px){.hgrid{grid-template-columns:1fr 1fr}}
 .hc{border:1px solid var(--line);border-radius:4px}
@@ -146,58 +151,57 @@ svg[data-f] .deco{display:none}
 .hc .hd{font-size:12px;color:var(--text2);margin-top:2px}
 .hc .hm{margin-top:4px}
 .hc .body{padding:0 12px 12px;border-top:1px solid var(--line)}
-.hc dl{display:grid;grid-template-columns:62px 1fr;gap:5px 10px;margin:11px 0 0;font-size:13px}
+.hc dl{display:grid;grid-template-columns:60px 1fr;gap:5px 10px;margin:11px 0 0;font-size:13px}
 .hc dt{color:var(--text3);font-size:12px}
 .hc dd{margin:0}
 .acts{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 .acts a{padding:5px 10px;font-size:12px}
 
-/* ===== budget ===== */
 .bx{border:1px solid var(--line);border-radius:4px;padding:14px}
 .fixed{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;padding:5px 0;color:var(--text2)}
 .fixed b{color:var(--text);font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
-.sl{padding:12px 0 6px;border-top:1px solid var(--line)}
-.sl .row{display:flex;align-items:baseline;gap:8px;font-size:13.5px;margin-bottom:6px;flex-wrap:wrap}
-.sl .row .nm{flex:1;font-weight:500;min-width:110px}
+.sl{padding:11px 0 5px;border-top:1px solid var(--line)}
+.sl .row{display:flex;align-items:baseline;gap:8px;font-size:13.5px;margin-bottom:5px;flex-wrap:wrap}
+.sl .row .nm{flex:1;font-weight:500;min-width:100px}
 .sl .row .pp{font-variant-numeric:tabular-nums;font-weight:600;font-size:14.5px}
 .sl .row .tt{color:var(--text3);font-size:12px;font-variant-numeric:tabular-nums}
 .sl input[type=range]{width:100%;accent-color:#337ea9;height:28px;margin:0;cursor:pointer}
 .sl .hint{font-size:11.5px;color:var(--text3);margin-top:-2px}
 .grand{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
-.grand .big{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.grand .big{font-size:29px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
 .grand .per{font-size:14px;color:var(--text2);font-variant-numeric:tabular-nums}
 
-/* ===== checklist ===== */
 .ck{list-style:none;margin:6px 0;padding:0}
-.ck li{display:flex;gap:10px;padding:6px 0;align-items:flex-start}
-.ck li.h{display:block;font-size:11.5px;letter-spacing:.06em;color:var(--text3);margin:14px 0 0;font-weight:600}
+.ck li{display:flex;gap:10px;padding:5px 0;align-items:flex-start}
+.ck li.h{display:block;font-size:11.5px;letter-spacing:.06em;color:var(--text3);margin:13px 0 0;font-weight:600}
 .ck input{margin:3px 0 0;width:18px;height:18px;flex:none;accent-color:#337ea9;cursor:pointer}
-.ck label{flex:1;cursor:pointer;font-size:14.5px}
+.ck label{flex:1;cursor:pointer;font-size:14px}
 .ck label small{display:block;margin-top:1px;line-height:1.4}
 .ck input:checked+label{color:var(--text3);text-decoration:line-through}
 .ck input:checked+label small{text-decoration:none}
 .btn{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--text2);padding:7px 12px;border-radius:4px;cursor:pointer;min-height:36px}
 .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
-.lg a{display:block;padding:9px 10px;border:1px solid var(--line);border-radius:4px;font-size:13px;border-bottom-width:1px}
+.lg a{display:block;padding:9px 10px;border:1px solid var(--line);border-radius:4px;font-size:13px}
 .lg a small{display:block;margin-top:1px;font-size:11px}
 .tel{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:baseline}
 .tel:last-child{border-bottom:none}
 .tel a{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
-.end{font-size:12px;color:var(--text3);margin-top:20px;line-height:1.55}
+.end{font-size:12px;color:var(--text3);margin-top:18px;line-height:1.55}
 
-@media print{html,body{overflow:visible;height:auto}#deck{height:auto;overflow:visible}#rail,#pgn,.btn{display:none}.slide{min-height:0;page-break-after:always;padding:16px 0}}
+@media print{html,body{overflow:visible;height:auto}#deck{height:auto;overflow:visible}#rail,#pgn,#railzone,.btn{display:none}.slide{min-height:0;page-break-after:always;padding:16px 0}}
 </style>
 </head>
 <body>
 
 <div id="pgn"></div>
+<div id="railzone"></div>
 <nav id="rail" aria-label="页面导航"></nav>
 
 <div id="deck">
 
-<!-- 1 封面 -->
+<!-- ============ 1 封面 ============ -->
 <section class="slide" data-t="封面">
-  <span class="pn">01 / 14</span>
+  <span class="pn">01 / 09</span>
   <div class="in">
     <div class="icon">🗾</div>
     <h1>青森 5 日自驾</h1>
@@ -206,222 +210,18 @@ svg[data-f] .deco{display:none}
     <div class="prop"><span class="k">路线</span><span class="v">新青森进出 · 闭环 445 公里<br><span class="dim">全程零爬升</span></span></div>
     <div class="prop"><span class="k">住宿</span><span class="v"><span class="tag g">4 晚已订</span></span></div>
     <div class="prop"><span class="k">车</span><span class="v">日产 Note e-POWER · ¥39,000 <span class="tag g">已订</span></span></div>
-    <div class="prop"><span class="k">新干线</span><span class="v"><span class="tag r">未订</span><br><span class="dim">8/19 与 8/23 的 10:00 开卖</span></span></div>
+    <div class="prop"><span class="k">新干线</span><span class="v"><span class="tag r">未订</span> <span class="dim">8/19、8/23 的 10:00 开卖</span></span></div>
     <div class="prop"><span class="k">预算</span><span class="v"><b>约 ¥569,000</b><span class="dim"> · 每人约 ¥142,000</span></span></div>
-    <p class="end">上下滑动翻页 · 右侧小横杠可跳转</p>
+    <p class="end">上下滑动翻页 · 手指碰右边缘可呼出目录</p>
   </div>
 </section>
 
-<!-- 2 路线总览 -->
-<section class="slide" data-t="路线">
-  <span class="pn">02 / 14</span>
-  <div class="in">
-    <h2>路线总览</h2>
-    <p class="sub">点地图上的某一天，或用下面的按钮筛选。</p>
-    <div class="mapwrap" id="mainmap">
-<svg id="map" viewBox="0 0 920 610" role="img" aria-label="青森 5 日自驾路线图">
-  <defs>
-    <marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d9730d"/></marker>
-    <marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#448361"/></marker>
-    <marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9065b0"/></marker>
-  </defs>
-  <g class="deco">
-    <path d="M370 0 L920 0 L920 92 Q 800 116 700 100 Q 610 86 530 106 Q 465 122 424 98 Q 392 82 370 44 Z" fill="var(--blue)"/>
-    <text class="ml s" x="775" y="46" text-anchor="middle">陆奥湾</text>
-    <path d="M480 322 L502 292 L524 322 Z" fill="var(--gray)"/><text class="ml s" x="470" y="300" text-anchor="end">八甲田山系</text>
-    <path d="M52 348 L75 316 L98 348 Z" fill="var(--gray)"/><text class="ml s" x="75" y="366" text-anchor="middle">岩木山</text>
-  </g>
-  <ellipse cx="578" cy="528" rx="52" ry="42" fill="var(--blue)"/>
-  <text class="ml s" x="578" y="532" text-anchor="middle">十和田湖</text>
-
-  <g class="lay" data-day="1">
-    <polyline points="410,134 447,133 410,153" fill="none" stroke="#337ea9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="410" cy="134" r="4.5" fill="var(--bg)" stroke="#337ea9" stroke-width="2.2"/>
-    <text class="ml s" x="400" y="118" text-anchor="end">新青森站 取/还车</text>
-    <circle cx="410" cy="153" r="4.5" fill="#337ea9"/><text class="ml s" x="398" y="176" text-anchor="end">三内丸山 · 县美</text>
-    <rect x="429" y="120" width="18" height="18" rx="4" fill="#337ea9"/><text x="438" y="133.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
-    <text class="ml h" x="476" y="128">青森市 ①④</text>
-    <text class="ml s" x="476" y="144">① Super Hotel（桥本）</text>
-    <text class="ml s" x="476" y="158">④ Dormy Inn（新町）</text>
-  </g>
-
-  <g class="lay" data-day="2">
-    <polyline points="447,133 480,210 545,300 560,321 546,334 524,330 570,370 608,402 669,491 780,440 844,374" fill="none" stroke="#d9730d" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#m2)"/>
-    <circle cx="560" cy="321" r="5" fill="#d9730d"/><text class="ml" x="573" y="318">八甲田缆车</text>
-    <circle cx="546" cy="334" r="4.5" fill="#d9730d"/><text class="ml s" x="552" y="356">酸汤温泉</text>
-    <circle cx="524" cy="330" r="4" fill="#d9730d"/><text class="ml s" x="514" y="322" text-anchor="end">城仓大桥</text>
-    <circle cx="608" cy="402" r="4.5" fill="#d9730d"/><text class="ml s" x="619" y="400">茑沼</text>
-    <rect x="834" y="364" width="19" height="19" rx="4" fill="#d9730d"/><text x="843.5" y="378.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
-    <text class="ml h" x="826" y="370" text-anchor="end">十和田市 ②</text>
-    <text class="ml s" x="826" y="386" text-anchor="end">Super Hotel</text>
-  </g>
-
-  <g class="lay" data-day="3">
-    <polyline points="844,374 760,452 669,491 631,461 599,493 580,512 571,552 545,522 539,487 452,436 380,382 320,340 264,366 212,385" fill="none" stroke="#448361" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#m3)"/>
-    <circle cx="669" cy="491" r="4" fill="var(--bg)" stroke="#448361" stroke-width="2.2"/><text class="ml s" x="681" y="496">烧山（奥入濑入口）</text>
-    <circle cx="631" cy="461" r="5" fill="#448361"/><text class="ml" x="643" y="456">奥入濑 石户</text>
-    <circle cx="599" cy="493" r="4" fill="#448361"/><text class="ml s" x="590" y="482" text-anchor="end">铫子大瀑</text>
-    <circle cx="571" cy="552" r="5" fill="#448361"/><text class="ml s" x="571" y="574" text-anchor="middle">休屋 · 游览船</text>
-    <circle cx="539" cy="487" r="4" fill="#448361"/><text class="ml s" x="529" y="466" text-anchor="end">泷之泽展望台</text>
-    <circle cx="320" cy="340" r="4.5" fill="#448361"/><text class="ml s" x="320" y="330" text-anchor="middle">黑石 老街</text>
-    <rect x="203" y="376" width="19" height="19" rx="4" fill="#448361"/><text x="212.5" y="390.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
-    <text class="ml h" x="212" y="416" text-anchor="middle">弘前 ③</text><text class="ml s" x="212" y="431" text-anchor="middle">Dormy Inn</text>
-  </g>
-
-  <g class="lay" data-day="4">
-    <polyline points="212,385 174,318 152,232 262,178 362,144 447,133" fill="none" stroke="#9065b0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#m4)"/>
-    <circle cx="152" cy="232" r="4.5" fill="#9065b0"/><text class="ml s" x="165" y="230">鹤之舞桥</text>
-    <rect x="450" y="132" width="18" height="18" rx="4" fill="#9065b0"/><text x="459" y="145.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">4</text>
-  </g>
-
-  <g class="lay" data-day="5">
-    <polyline points="447,133 410,134" fill="none" stroke="#787774" stroke-width="3.2" stroke-dasharray="6 5" stroke-linecap="round"/>
-  </g>
-
-  <g class="deco" transform="translate(40,452)">
-    <rect x="-8" y="-16" width="244" height="116" rx="3" fill="var(--bg)" stroke="var(--line)"/>
-    <line x1="2" y1="0" x2="28" y2="0" stroke="#337ea9" stroke-width="3.2" stroke-linecap="round"/><text class="ml s" x="38" y="4">D1 青森市内 · 25 公里</text>
-    <line x1="2" y1="22" x2="28" y2="22" stroke="#d9730d" stroke-width="3.2" stroke-linecap="round"/><text class="ml s" x="38" y="26">D2 翻八甲田 · 110 公里</text>
-    <line x1="2" y1="44" x2="28" y2="44" stroke="#448361" stroke-width="3.2" stroke-linecap="round"/><text class="ml s" x="38" y="48">D3 奥入濑·十和田湖 · 160 公里</text>
-    <line x1="2" y1="66" x2="28" y2="66" stroke="#9065b0" stroke-width="3.2" stroke-linecap="round"/><text class="ml s" x="38" y="70">D4 弘前 → 青森 · 130 公里</text>
-    <line x1="2" y1="88" x2="28" y2="88" stroke="#787774" stroke-width="3.2" stroke-dasharray="6 5" stroke-linecap="round"/><text class="ml s" x="38" y="92">D5 还车 → 返京 · 20 公里</text>
-  </g>
-  <g class="deco" transform="translate(690,586)">
-    <line x1="0" y1="0" x2="101" y2="0" stroke="var(--text3)" stroke-width="1.6"/>
-    <line x1="0" y1="-5" x2="0" y2="5" stroke="var(--text3)" stroke-width="1.6"/>
-    <line x1="101" y1="-5" x2="101" y2="5" stroke="var(--text3)" stroke-width="1.6"/>
-    <text class="ml s" x="50" y="-9" text-anchor="middle">10 公里</text>
-  </g>
-  <g class="deco" transform="translate(60,40)"><path d="M0,-15 L5.5,6 L0,1.5 L-5.5,6 Z" fill="var(--text3)"/><text class="ml s" x="0" y="23" text-anchor="middle">N</text></g>
-</svg>
-    </div>
-    <p class="mhint">← 左右滑动可看全图 →</p>
-    <div class="tabs" id="tabs">
-      <button data-d="all" aria-selected="true">全部</button>
-      <button data-d="1">D1</button><button data-d="2">D2</button>
-      <button data-d="3">D3</button><button data-d="4">D4</button><button data-d="5">D5</button>
-    </div>
-    <div class="tw"><table>
-      <tbody>
-        <tr><td><b>D1</b> <span class="dim">9/19</span></td><td>抵达 · 海鲜盖饭 · 三内丸山 · 县美</td><td class="n">40 分</td></tr>
-        <tr><td><b>D2</b> <span class="dim">9/20</span></td><td>八甲田缆车 · 酸汤温泉 · 茑沼</td><td class="n">2.5 时</td></tr>
-        <tr><td><b>D3</b> <span class="dim">9/21</span></td><td>奥入濑 · 十和田湖游览船 · 黑石</td><td class="n">3 时</td></tr>
-        <tr><td><b>D4</b> <span class="dim">9/22</span></td><td>弘前城 · 洋馆 · 砖仓美术馆</td><td class="n">2.3 时</td></tr>
-        <tr><td><b>D5</b> <span class="dim">9/23</span></td><td>睡魔之家 · 还车 · 返京</td><td class="n">30 分</td></tr>
-      </tbody>
-    </table></div>
-    <div class="co b"><div class="ic">🔑</div><div class="bd"><p>住十和田是为了 D3 早上到奥入濑只要 35 分钟；八甲田缆车 9:00 开门，正好当 D2 路上的内容。<b>全程零爬升</b>——山靠缆车、湖靠游船、溪流靠开车跳站。</p></div></div>
-  </div>
-</section>
-
-<!-- 3 D1 -->
-<section class="slide" data-t="D1">
-  <span class="pn">03 / 14</span>
-  <div class="in">
-    <h2>D1 · 9/19 六</h2>
-    <p class="sub">抵达 · 海鲜盖饭 · 绳文遗迹 · 县立美术馆</p>
-    <div class="mapwrap mini" data-map="1"></div>
-    <div class="stop"><div class="t">08:20</div><div class="c"><b class="h">东京站 出发 · 隼号新干线</b><p>11:44 前后到新青森。<b>选车厢最后一排</b>，后方能放行李。</p></div></div>
-    <div class="stop"><div class="t">12:00</div><div class="c"><b class="h">新青森站 · 取车</b><p>带两人的日本驾照 + 信用卡，确认已登记<b>追加驾驶员</b>。</p></div></div>
-    <div class="leg">↓ 13 分 · 6 公里</div>
-    <div class="stop"><div class="t">12:20</div><div class="c"><b class="h">自选海鲜盖饭<span class="jp">青森鱼菜中心</span></b><p>买餐券换一碗白饭，在市场里逐摊挑刺身自己拼。<b>行李留车上</b>——酒店在桥本，不在市场旁。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=青森魚菜センター" target="_blank">地图</a><span class="tag">周二休 · 约 ¥2,000</span></p></div></div>
-    <div class="leg">↓ 13 分 · 6 公里</div>
-    <div class="stop"><div class="t">13:40</div><div class="c"><b class="h">三内丸山遗迹</b><p>世界遗产，5,900 年前的绳文大型定居聚落。复原的六柱大型建筑是重点，室内展馆遇雨也不影响。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=三内丸山遺跡" target="_blank">地图</a><span class="tag g">停车免费</span><span class="tag">¥410</span></p></div></div>
-    <div class="leg">↓ 3 分 · 相邻</div>
-    <div class="stop"><div class="t">15:10</div><div class="c"><b class="h">青森县立美术馆</b><p>看两件：奈良美智的<b>「青森犬」</b>（8.5 米高，户外）和夏加尔的三幅巨型舞台背景画。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=青森県立美術館" target="_blank">地图</a><span class="tag">入馆至 16:30 · ¥510</span></p></div></div>
-    <div class="leg">↓ 18 分 · 8 公里</div>
-    <div class="stop"><div class="t">17:00</div><div class="c"><b class="h">入住 · Super Hotel 青森</b><p>停车免费但<b>先到先得</b>，早到更稳。明早含免费早餐。</p><p><a class="tag" href="tel:+81177239000">017-723-9000</a><span class="tag y">⛽ 晚上加满油</span></p></div></div>
-  </div>
-</section>
-
-<!-- 4 D2 -->
-<section class="slide" data-t="D2">
-  <span class="pn">04 / 14</span>
-  <div class="in">
-    <h2>D2 · 9/20 日</h2>
-    <p class="sub">翻八甲田 → 十和田市</p>
-    <div class="mapwrap mini" data-map="2"></div>
-    <div class="co y"><div class="ic">⏰</div><div class="bd"><p><b>缆车 9:00 开门，8:10 出发刚好。</b>单趟 101 人、15–20 分钟一班，连休日过了 11:00 可能排 1 小时以上。先吃酒店免费早餐（6:30 起）。</p></div></div>
-    <div class="stop"><div class="t">08:10</div><div class="c"><b class="h">退房出发</b><p><b>外套带上车</b>——山顶只有 8–10 ℃。山路弯多，导航时间 ×1.3。</p></div></div>
-    <div class="leg">↓ 40 分 · 25 公里</div>
-    <div class="stop"><div class="t">08:55</div><div class="c"><b class="h">八甲田缆车</b><p>10 分钟升到 1,314 米。山顶是铺装木道，<b>最短环线 30 分钟</b>，不想走在展望台待着也值。强风雷雨会停运。</p><p><a class="tag" href="https://www.hakkoda-ropeway.jp/" target="_blank">官网</a><span class="tag g">停车免费</span><span class="tag">往返 ¥2,000</span></p></div></div>
-    <div class="leg">↓ 10 分 · 6 公里</div>
-    <div class="stop"><div class="t">10:45</div><div class="c"><b class="h">酸汤温泉 · 泡汤 + 午餐</b><p>1684 年开汤。<b>去男女分浴的「玉之汤」</b>，同一张日归票就能进，不必进那个混浴的千人风吕。旁边食堂解决午饭。</p><p><a class="tag" href="https://sukayu.jp/" target="_blank">官网</a><span class="tag">约 ¥1,000</span></p></div></div>
-    <div class="leg">↓ 8 分（小折返）</div>
-    <div class="stop"><div class="t">12:40</div><div class="c"><b class="h">城仓大桥</b><p>日本最长上承式拱桥，离谷底 122 米。停 10 分钟。停车场仅 30 台，停不下就开过去。</p></div></div>
-    <div class="leg">↓ 35 分 · 25 公里</div>
-    <div class="stop"><div class="t">13:45</div><div class="c"><b class="h">茑沼</b><p>山毛榉林里的镜面小湖，平坦木道<b>往返 20 分钟</b>。</p><p><span class="tag y">🔔 带熊铃</span></p></div></div>
-    <div class="leg">↓ 50 分 · 40 公里</div>
-    <div class="stop"><div class="t">15:15</div><div class="c"><b class="h">十和田市现代美术馆</b><p>西泽立卫设计的白盒子群落，草间弥生、罗恩·穆克常设。<b>马路对面的艺术广场免费</b>。周日开馆，入馆至 16:30。</p><p><a class="tag" href="https://towadaartcenter.com/" target="_blank">官网</a><span class="tag">约 ¥1,800</span></p></div></div>
-    <div class="stop"><div class="t">17:00</div><div class="c"><b class="h">入住 · Super Hotel 十和田</b><p>免费停车、免费早餐、大浴场。晚餐<b>十和田烤肉</b>（牛五花 + 大量洋葱，需订位）。<b>早点睡</b>。</p><p><a class="tag" href="tel:+81176239300">0176-23-9300</a><span class="tag y">⛽ 今晚加满油</span></p></div></div>
-  </div>
-</section>
-
-<!-- 5 D3 -->
-<section class="slide" data-t="D3">
-  <span class="pn">05 / 14</span>
-  <div class="in">
-    <h2>D3 · 9/21 一</h2>
-    <p class="sub">奥入濑溪流 · 十和田湖 → 弘前</p>
-    <div class="mapwrap mini" data-map="3"></div>
-    <div class="co r"><div class="ic">⏰</div><div class="bd"><p><b>今天成败只看一件事：7:15 出门。</b>奥入濑的国道是单车道贴溪流，停车位极少，连休日 9:30 前就满。住十和田开过去只要 45 分钟，7:15 出门就能 8:00 到，停车位随便挑、步道上几乎没人。<b>7:45 是底线。</b></p></div></div>
-    <div class="stop"><div class="t">06:30</div><div class="c"><b class="h">酒店免费早餐 → 7:15 出发</b><p>退房不用办手续（密码锁 + 已结账），拎包上车即可。</p></div></div>
-    <div class="leg">↓ 45 分 · 35 公里</div>
-    <div class="stop"><div class="t">08:00</div><div class="c"><b class="h">石户 → 阿修罗之流</b><p>今天唯一一段像样的散步，也是奥入濑最上镜的一段。<b>往返 1.4 公里、35 分钟，平坦碎石路无爬升</b>。晨光斜射进溪谷的效果最好。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=石ヶ戸休憩所" target="_blank">地图</a><span class="tag y">🔔 带熊铃</span></p></div></div>
-    <div class="leg">↓ 开车跳站</div>
-    <div class="stop"><div class="t">08:50</div><div class="c"><b class="h">云井瀑布 → 铫子大瀑布</b><p>都在路边，各停车走 3–5 分钟。因为铫子大瀑，鱼当年上不了十和田湖，<b>湖里原本一条鱼都没有</b>。</p></div></div>
-    <div class="leg">↓ 25 分 · 14 公里</div>
-    <div class="stop"><div class="t">11:00</div><div class="c"><b class="h">十和田湖游览船</b><p>零体力的最佳景观。<b>选「休屋出发、休屋返回」的环游航线</b>（约 50 分钟）——另一条是单程，坐了要另想办法回来取车。甲板有风，带外套。</p><p><span class="tag">约 ¥1,650</span><span class="tag o">停车约 ¥500</span></p></div></div>
-    <div class="stop"><div class="t">12:10</div><div class="c"><b class="h">午餐 姬鳟 → 乙女之像</b><p>休屋的餐厅基本都有姬鳟。饭后走平坦林道往返 20 分钟。<b>乡下餐厅 14:00 打烊，别拖。</b></p></div></div>
-    <div class="leg">↓ 25 分 · 15 公里</div>
-    <div class="stop"><div class="t">14:10</div><div class="c"><b class="h">泷之泽展望台</b><p>不走回头路的理由。路边就能一眼俯瞰整个十和田湖——刚才在湖面上看不到的角度。停 15 分钟。</p></div></div>
-    <div class="leg">↓ 1 时 05 分 · 45 公里</div>
-    <div class="stop"><div class="t">15:40</div><div class="c"><b class="h">黑石 中町小见世通</b><p>江户木造拱廊街，全程平地约 600 米。顺便吃一碗<b>黑石汁炒面</b>——炒面泡进和风高汤。</p><p><span class="tag g">停车免费</span></p></div></div>
-    <div class="leg">↓ 30 分 · 20 公里</div>
-    <div class="stop"><div class="t">17:10</div><div class="c"><b class="h">入住 · Dormy Inn 弘前</b><p>天然温泉大浴场。<b>21:30–23:00 有免费的夜鸣拉面</b>。<br>提醒：明早<b>不含早餐</b>（现场补 ¥2,000/人）；大浴场<b>谢绝纹身者</b>。</p><p><a class="tag" href="tel:+81172375489">0172-37-5489</a></p></div></div>
-  </div>
-</section>
-
-<!-- 6 D4 -->
-<section class="slide" data-t="D4">
-  <span class="pn">06 / 14</span>
-  <div class="in">
-    <h2>D4 · 9/22 二</h2>
-    <p class="sub">弘前一日 → 回青森</p>
-    <div class="mapwrap mini" data-map="4"></div>
-    <div class="co p"><div class="ic">🏛</div><div class="bd"><p><b>今天停一次车走一天。</b>弘前的江户城 + 明治大正洋馆全在弘前公园周边步行范围内，酒店到公园约 1.5 公里，全天平地。</p></div></div>
-    <div class="stop"><div class="t">09:00</div><div class="c"><b class="h">弘前公园 · 弘前城</b><p>东北现存唯一的江户期天守。天守因石垣修复被整体移到本丸内临时位置，<b>反而能近距离看到侧面和底部</b>。停车场假日会满，早到。</p><p><a class="tag" href="https://www.hirosakipark.jp/" target="_blank">官网</a><span class="tag">入园免费 · 本丸 ¥320</span></p></div></div>
-    <div class="stop"><div class="t">10:40</div><div class="c"><b class="h">洋馆巡礼</b><p>都在公园南侧 400 米内：旧弘前市立图书馆（免费）、青森银行纪念馆（¥200）、以及<b>星巴克弘前公园前店</b>——旧第八师团长官舍改造，在百年军官官邸里喝咖啡。</p></div></div>
-    <div class="stop"><div class="t">12:00</div><div class="c"><b class="h">藤田纪念庭园 · 苹果派</b><p>从洋馆窗户能望到岩木山。馆内的大正浪漫咖啡室是<b>苹果派巡礼</b>的头号据点（市内有 50 多种）。</p><p><span class="tag">¥320</span></p></div></div>
-    <div class="stop"><div class="t">13:30</div><div class="c"><b class="h">弘前砖仓美术馆</b><p>明治砖造酒仓，田根刚改造：保留斑驳砖墙，屋顶铺一层泛金光的钛板。奈良美智曾三度在这里办展。</p><p><a class="tag" href="https://www.hirosaki-moca.jp/" target="_blank">官网</a><span class="tag">约 ¥1,300</span></p></div></div>
-    <div class="stop"><div class="t">15:00</div><div class="c"><b class="h">鹤之舞桥<span class="jp">可选</span></b><p>300 米长的木造三连拱桥，背景是岩木山。<b>该桥曾长期封闭，出发前务必确认</b>；不通就改去五所川原立佞武多之馆（室内，¥650，同在回青森路上）。</p></div></div>
-    <div class="leg">↓ 50–70 分 · 50 公里</div>
-    <div class="stop"><div class="t">17:30</div><div class="c"><b class="h">入住 · Dormy Inn 青森</b><p>青森站步行 10 分，13 楼顶层天然温泉。晚餐走到站前吃海鲜。<br><b>明早不含早餐</b>，现场补 ¥2,500/人，<b>供应到 09:00</b>。</p><p><a class="tag" href="tel:+81177215489">017-721-5489</a></p></div></div>
-  </div>
-</section>
-
-<!-- 7 D5 -->
-<section class="slide" data-t="D5">
-  <span class="pn">07 / 14</span>
-  <div class="in">
-    <h2>D5 · 9/23 三</h2>
-    <p class="sub">睡魔之家 · 还车 · 返京</p>
-    <div class="mapwrap mini" data-map="5"></div>
-    <div class="co y"><div class="ic">⏱</div><div class="bd"><p><b>还车 12:00</b>，正好 4 日租金，晚一点可能跳一档。7:00 早餐、8:45 退房，两个点各一小时，11:15 去加油。今天是宽裕的。</p></div></div>
-    <div class="stop"><div class="t">07:00</div><div class="c"><b class="h">早餐 → 8:45 退房</b><p>早餐供应到 <b>09:00</b>，7:00 去最从容。行李全部装车。</p></div></div>
-    <div class="stop"><div class="t">09:00</div><div class="c"><b class="h">睡魔之家 WA RASSE</b><p>常设四台当年真正上街游行的大型睡魔灯笼，每台高 5 米、宽 9 米。全室内。</p><p><span class="tag">约 ¥620</span></p></div></div>
-    <div class="stop"><div class="t">10:15</div><div class="c"><b class="h">A-FACTORY</b><p>隔壁的苹果酒工房 + 特产店，可试饮（开车的人不行）。<b>买多了从新青森站快递寄回东京</b>，大箱约 ¥2,000 次日到。</p></div></div>
-    <div class="stop"><div class="t">11:15</div><div class="c"><b class="h">加油 → 12:00 还车</b><p>加满油还车，保留收据。加油按钮认<b>「レギュラー」</b>（红色）。</p></div></div>
-    <div class="stop"><div class="t">13:30</div><div class="c"><b class="h">新青森 出发 → 17:00 东京</b><p>站内买伴手礼与铁路便当，预留 60 分钟。<b>别选傍晚班次</b>，连休最后一天下行最挤。</p></div></div>
-  </div>
-</section>
-
-<!-- 8 住宿 -->
+<!-- ============ 2 住宿 ============ -->
 <section class="slide" data-t="住宿">
-  <span class="pn">08 / 14</span>
+  <span class="pn">02 / 09</span>
   <div class="in">
     <h2>住宿</h2>
-    <p class="sub">四晚已全部确认。红黄标签是<b>免费取消的截止日</b>。</p>
+    <p class="sub">四晚已全部确认。黄红标签是<b>免费取消的截止日</b>。点卡片看详情。</p>
     <div class="hgrid">
       <details class="hc"><summary><div>
         <div class="hn">① Super Hotel 青森</div>
@@ -432,9 +232,9 @@ svg[data-f] .deco{display:none}
         <dt>电话</dt><dd><a href="tel:+81177239000"><code>017-723-9000</code></a></dd>
         <dt>时间</dt><dd>入住 15:00–24:00 ／ 退房 10:00（免手续）</dd>
         <dt>房型</dt><dd>特大房（禁烟）· 双人床 · 2 间</dd>
-        <dt>费用</dt><dd><b>¥54,000</b> 现场付（¥27,000 × 2）</dd>
+        <dt>费用</dt><dd><b>¥54,000</b> 现场付</dd>
         <dt>预约号</dt><dd><code>3823-3208-7036</code><br><code>3823-3210-1294</code></dd>
-        <dt>取消</dt><dd><b>9/18 之前免费</b>，当天取消收 100%</dd>
+        <dt>取消</dt><dd><b>9/18 之前免费</b>，当天收 100%</dd>
         <dt>停车</dt><dd>免费，数量有限、<b>先到先得</b></dd>
       </dl><div class="acts">
         <a class="tag" href="https://www.superhotel.co.jp/s_hotels/aomori/" target="_blank">官网</a>
@@ -451,9 +251,9 @@ svg[data-f] .deco{display:none}
         <dt>时间</dt><dd>入住 15:00–24:00 ／ 退房 10:00（免手续）</dd>
         <dt>房型</dt><dd>标准房（禁烟）· 150 厘米宽双人床 · 2 间</dd>
         <dt>含</dt><dd>大浴场「奥入濑之汤」· 免费早餐 · 免费饮料吧</dd>
-        <dt>费用</dt><dd><b>¥39,960</b> 现场付（¥19,980 × 2）</dd>
+        <dt>费用</dt><dd><b>¥39,960</b> 现场付</dd>
         <dt>预约号</dt><dd><code>3823-1325-7761</code><br><code>3823-1327-8881</code></dd>
-        <dt>取消</dt><dd><b>9/19 之前免费</b>，当天取消收 100%</dd>
+        <dt>取消</dt><dd><b>9/19 之前免费</b>，当天收 100%</dd>
       </dl><div class="acts">
         <a class="tag" href="https://www.superhotel.co.jp/s_hotels/towada/" target="_blank">官网</a>
         <a class="tag" href="https://www.google.com/maps/search/?api=1&query=スーパーホテル十和田" target="_blank">地图·照片</a>
@@ -500,9 +300,154 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 9 新干线 -->
+<!-- ============ 3 行程 ============ -->
+<section class="slide" data-t="行程">
+  <span class="pn">03 / 09</span>
+  <div class="in">
+    <h2>路线与行程</h2>
+    <p class="sub">点下面的按钮筛选地图，点日期卡片展开当天详情。</p>
+
+    <div class="mapwrap">
+<svg id="mapov" viewBox="0 0 920 610" style="--k:2.2" role="img" aria-label="青森 5 日自驾路线总览">
+  <path d="M370 0 L920 0 L920 92 Q 800 116 700 100 Q 610 86 530 106 Q 465 122 424 98 Q 392 82 370 44 Z" fill="var(--blue)"/>
+  <ellipse cx="578" cy="528" rx="56" ry="44" fill="var(--blue)"/>
+  <text class="ml s" x="578" y="538" text-anchor="middle">十和田湖</text>
+  <path d="M470 320 L502 278 L534 320 Z" fill="var(--gray)"/>
+  <text class="ml s" x="455" y="300" text-anchor="end">八甲田</text>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+    <polyline class="lay" data-day="1" points="410,140 447,133 410,158" stroke="#337ea9"/>
+    <polyline class="lay" data-day="2" points="447,133 480,210 545,300 560,321 546,334 524,330 570,370 608,402 669,491 780,440 844,374" stroke="#d9730d"/>
+    <polyline class="lay" data-day="3" points="844,374 760,452 669,491 631,461 599,493 580,512 571,552 545,522 539,487 452,436 380,382 320,340 264,366 212,385" stroke="#448361"/>
+    <polyline class="lay" data-day="4" points="212,385 174,318 152,232 262,178 362,144 447,133" stroke="#9065b0"/>
+    <polyline class="lay" data-day="5" points="447,133 410,140" stroke="#787774" stroke-dasharray="9 7"/>
+  </g>
+  <g class="lay" data-day="3">
+    <circle cx="631" cy="461" r="9" fill="#448361"/><text class="ml" x="652" y="455">奥入濑</text>
+    <circle cx="320" cy="340" r="8" fill="#448361"/><text class="ml s" x="320" y="318" text-anchor="middle">黑石</text>
+    <rect x="196" y="371" width="30" height="30" rx="7" fill="#448361"/><text x="211" y="393" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">3</text>
+    <text class="ml h" x="211" y="436" text-anchor="middle">弘前 ③</text>
+  </g>
+  <g class="lay" data-day="2">
+    <rect x="828" y="358" width="30" height="30" rx="7" fill="#d9730d"/><text x="843" y="380" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">2</text>
+    <text class="ml h" x="812" y="368" text-anchor="end">十和田 ②</text>
+  </g>
+  <g class="lay" data-day="1">
+    <circle cx="410" cy="140" r="8" fill="var(--bg)" stroke="#337ea9" stroke-width="4"/>
+    <text class="ml s" x="392" y="120" text-anchor="end">新青森站</text>
+    <rect x="432" y="118" width="30" height="30" rx="7" fill="#337ea9"/><text x="447" y="140" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">1</text>
+    <text class="ml h" x="474" y="132">青森 ①④</text>
+  </g>
+</svg>
+    </div>
+
+    <div class="keys" id="keys">
+      <button data-d="all" aria-selected="true">全部</button>
+      <button data-d="1"><s style="background:#337ea9"></s>D1 · 25km</button>
+      <button data-d="2"><s style="background:#d9730d"></s>D2 · 110km</button>
+      <button data-d="3"><s style="background:#448361"></s>D3 · 160km</button>
+      <button data-d="4"><s style="background:#9065b0"></s>D4 · 130km</button>
+      <button data-d="5"><s style="background:#787774"></s>D5 · 20km</button>
+    </div>
+
+    <details class="dc" data-day="1" style="--dc:#337ea9"><summary><div>
+      <div class="dn">D1<span>9/19 六</span></div>
+      <div class="dt2">抵达 · 海鲜盖饭 · 三内丸山 · 县立美术馆</div>
+      <div class="dm"><span class="tag">车程 40 分</span><span class="tag">住 Super Hotel 青森</span></div>
+    </div></summary><div class="body">
+      <div class="mapwrap mini" data-map="1"></div>
+      <div class="stop"><div class="t">08:20</div><div class="c"><b class="h">东京站 出发 · 隼号新干线</b><p>11:44 前后到新青森。<b>选车厢最后一排</b>，后方能放行李。</p></div></div>
+      <div class="stop"><div class="t">12:00</div><div class="c"><b class="h">新青森站 · 取车</b><p>带两人的日本驾照 + 信用卡，确认已登记<b>追加驾驶员</b>。</p></div></div>
+      <div class="leg">↓ 13 分 · 6 公里</div>
+      <div class="stop"><div class="t">12:20</div><div class="c"><b class="h">自选海鲜盖饭<span class="jp">青森鱼菜中心</span></b><p>买餐券换一碗白饭，在市场里逐摊挑刺身自己拼。<b>行李留车上</b>——酒店在桥本，不在市场旁。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=青森魚菜センター" target="_blank">地图</a><span class="tag">周二休 · 约 ¥2,000</span></p></div></div>
+      <div class="leg">↓ 13 分 · 6 公里</div>
+      <div class="stop"><div class="t">13:40</div><div class="c"><b class="h">三内丸山遗迹</b><p>世界遗产，5,900 年前的绳文大型定居聚落。复原的六柱大型建筑是重点，室内展馆遇雨也不影响。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=三内丸山遺跡" target="_blank">地图</a><span class="tag g">停车免费</span><span class="tag">¥410</span></p></div></div>
+      <div class="leg">↓ 3 分 · 相邻</div>
+      <div class="stop"><div class="t">15:10</div><div class="c"><b class="h">青森县立美术馆</b><p>看两件：奈良美智的<b>「青森犬」</b>（8.5 米高，户外）和夏加尔的三幅巨型舞台背景画。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=青森県立美術館" target="_blank">地图</a><span class="tag">入馆至 16:30 · ¥510</span></p></div></div>
+      <div class="leg">↓ 18 分 · 8 公里</div>
+      <div class="stop"><div class="t">17:00</div><div class="c"><b class="h">入住 · Super Hotel 青森</b><p>停车免费但<b>先到先得</b>，早到更稳。明早含免费早餐。</p><p><a class="tag" href="tel:+81177239000">017-723-9000</a><span class="tag y">⛽ 晚上加满油</span></p></div></div>
+    </div></details>
+
+    <details class="dc" data-day="2" style="--dc:#d9730d"><summary><div>
+      <div class="dn">D2<span>9/20 日</span></div>
+      <div class="dt2">翻八甲田 · 缆车 · 酸汤温泉 → 十和田市</div>
+      <div class="dm"><span class="tag">车程 2.5 时</span><span class="tag">住 Super Hotel 十和田</span></div>
+    </div></summary><div class="body">
+      <div class="mapwrap mini" data-map="2"></div>
+      <div class="co y"><div class="ic">⏰</div><div class="bd"><p><b>缆车 9:00 开门，8:10 出发刚好。</b>单趟 101 人、15–20 分钟一班，连休日过了 11:00 可能排 1 小时以上。先吃酒店免费早餐（6:30 起）。</p></div></div>
+      <div class="stop"><div class="t">08:10</div><div class="c"><b class="h">退房出发</b><p><b>外套带上车</b>——山顶只有 8–10 ℃。山路弯多，导航时间 ×1.3。</p></div></div>
+      <div class="leg">↓ 40 分 · 25 公里</div>
+      <div class="stop"><div class="t">08:55</div><div class="c"><b class="h">八甲田缆车</b><p>10 分钟升到 1,314 米。山顶是铺装木道，<b>最短环线 30 分钟</b>，不想走在展望台待着也值。强风雷雨会停运。</p><p><a class="tag" href="https://www.hakkoda-ropeway.jp/" target="_blank">官网</a><span class="tag g">停车免费</span><span class="tag">往返 ¥2,000</span></p></div></div>
+      <div class="leg">↓ 10 分 · 6 公里</div>
+      <div class="stop"><div class="t">10:45</div><div class="c"><b class="h">酸汤温泉 · 泡汤 + 午餐</b><p>1684 年开汤。<b>去男女分浴的「玉之汤」</b>，同一张日归票就能进，不必进那个混浴的千人风吕。旁边食堂解决午饭。</p><p><a class="tag" href="https://sukayu.jp/" target="_blank">官网</a><span class="tag">约 ¥1,000</span></p></div></div>
+      <div class="leg">↓ 8 分（小折返）</div>
+      <div class="stop"><div class="t">12:40</div><div class="c"><b class="h">城仓大桥</b><p>日本最长上承式拱桥，离谷底 122 米。停 10 分钟。停车场仅 30 台，停不下就开过去。</p></div></div>
+      <div class="leg">↓ 35 分 · 25 公里</div>
+      <div class="stop"><div class="t">13:45</div><div class="c"><b class="h">茑沼</b><p>山毛榉林里的镜面小湖，平坦木道<b>往返 20 分钟</b>。</p><p><span class="tag y">🔔 带熊铃</span></p></div></div>
+      <div class="leg">↓ 50 分 · 40 公里</div>
+      <div class="stop"><div class="t">15:15</div><div class="c"><b class="h">十和田市现代美术馆</b><p>西泽立卫设计的白盒子群落，草间弥生、罗恩·穆克常设。<b>马路对面的艺术广场免费</b>。周日开馆，入馆至 16:30。</p><p><a class="tag" href="https://towadaartcenter.com/" target="_blank">官网</a><span class="tag">约 ¥1,800</span></p></div></div>
+      <div class="stop"><div class="t">17:00</div><div class="c"><b class="h">入住 · Super Hotel 十和田</b><p>免费停车、免费早餐、大浴场。晚餐<b>十和田烤肉</b>（牛五花 + 大量洋葱，需订位）。<b>早点睡</b>。</p><p><a class="tag" href="tel:+81176239300">0176-23-9300</a><span class="tag y">⛽ 今晚加满油</span></p></div></div>
+    </div></details>
+
+    <details class="dc" data-day="3" style="--dc:#448361"><summary><div>
+      <div class="dn">D3<span>9/21 一</span></div>
+      <div class="dt2">奥入濑溪流 · 十和田湖游览船 → 弘前</div>
+      <div class="dm"><span class="tag r">7:15 出发</span><span class="tag">车程 3 时</span><span class="tag">住 Dormy Inn 弘前</span></div>
+    </div></summary><div class="body">
+      <div class="mapwrap mini" data-map="3"></div>
+      <div class="co r"><div class="ic">⏰</div><div class="bd"><p><b>今天成败只看一件事：7:15 出门。</b>奥入濑的国道是单车道贴溪流，停车位极少，连休日 9:30 前就满。住十和田开过去只要 45 分钟，7:15 出门就能 8:00 到，停车位随便挑、步道上几乎没人。<b>7:45 是底线。</b></p></div></div>
+      <div class="stop"><div class="t">06:30</div><div class="c"><b class="h">酒店免费早餐 → 7:15 出发</b><p>退房不用办手续（密码锁 + 已结账），拎包上车即可。</p></div></div>
+      <div class="leg">↓ 45 分 · 35 公里</div>
+      <div class="stop"><div class="t">08:00</div><div class="c"><b class="h">石户 → 阿修罗之流</b><p>今天唯一一段像样的散步，也是奥入濑最上镜的一段。<b>往返 1.4 公里、35 分钟，平坦碎石路无爬升</b>。晨光斜射进溪谷的效果最好。</p><p><a class="tag" href="https://www.google.com/maps/search/?api=1&query=石ヶ戸休憩所" target="_blank">地图</a><span class="tag y">🔔 带熊铃</span></p></div></div>
+      <div class="leg">↓ 开车跳站</div>
+      <div class="stop"><div class="t">08:50</div><div class="c"><b class="h">云井瀑布 → 铫子大瀑布</b><p>都在路边，各停车走 3–5 分钟。因为铫子大瀑，鱼当年上不了十和田湖，<b>湖里原本一条鱼都没有</b>。</p></div></div>
+      <div class="leg">↓ 25 分 · 14 公里</div>
+      <div class="stop"><div class="t">11:00</div><div class="c"><b class="h">十和田湖游览船</b><p>零体力的最佳景观。<b>选「休屋出发、休屋返回」的环游航线</b>（约 50 分钟）——另一条是单程，坐了要另想办法回来取车。甲板有风，带外套。</p><p><span class="tag">约 ¥1,650</span><span class="tag o">停车约 ¥500</span></p></div></div>
+      <div class="stop"><div class="t">12:10</div><div class="c"><b class="h">午餐 姬鳟 → 乙女之像</b><p>休屋的餐厅基本都有姬鳟。饭后走平坦林道往返 20 分钟。<b>乡下餐厅 14:00 打烊，别拖。</b></p></div></div>
+      <div class="leg">↓ 25 分 · 15 公里</div>
+      <div class="stop"><div class="t">14:10</div><div class="c"><b class="h">泷之泽展望台</b><p>不走回头路的理由。路边就能一眼俯瞰整个十和田湖——刚才在湖面上看不到的角度。停 15 分钟。</p></div></div>
+      <div class="leg">↓ 1 时 05 分 · 45 公里</div>
+      <div class="stop"><div class="t">15:40</div><div class="c"><b class="h">黑石 中町小见世通</b><p>江户木造拱廊街，全程平地约 600 米。顺便吃一碗<b>黑石汁炒面</b>——炒面泡进和风高汤。</p><p><span class="tag g">停车免费</span></p></div></div>
+      <div class="leg">↓ 30 分 · 20 公里</div>
+      <div class="stop"><div class="t">17:10</div><div class="c"><b class="h">入住 · Dormy Inn 弘前</b><p>天然温泉大浴场。<b>21:30–23:00 有免费的夜鸣拉面</b>。<br>提醒：明早<b>不含早餐</b>（现场补 ¥2,000/人）；大浴场<b>谢绝纹身者</b>。</p><p><a class="tag" href="tel:+81172375489">0172-37-5489</a></p></div></div>
+    </div></details>
+
+    <details class="dc" data-day="4" style="--dc:#9065b0"><summary><div>
+      <div class="dn">D4<span>9/22 二</span></div>
+      <div class="dt2">弘前城 · 洋馆群 · 砖仓美术馆 → 回青森</div>
+      <div class="dm"><span class="tag">车程 2.3 时</span><span class="tag">住 Dormy Inn 青森</span></div>
+    </div></summary><div class="body">
+      <div class="mapwrap mini" data-map="4"></div>
+      <div class="co p"><div class="ic">🏛</div><div class="bd"><p><b>今天停一次车走一天。</b>弘前的江户城 + 明治大正洋馆全在弘前公园周边步行范围内，酒店到公园约 1.5 公里，全天平地。</p></div></div>
+      <div class="stop"><div class="t">09:00</div><div class="c"><b class="h">弘前公园 · 弘前城</b><p>东北现存唯一的江户期天守。天守因石垣修复被整体移到本丸内临时位置，<b>反而能近距离看到侧面和底部</b>。停车场假日会满，早到。</p><p><a class="tag" href="https://www.hirosakipark.jp/" target="_blank">官网</a><span class="tag">入园免费 · 本丸 ¥320</span></p></div></div>
+      <div class="stop"><div class="t">10:40</div><div class="c"><b class="h">洋馆巡礼</b><p>都在公园南侧 400 米内：旧弘前市立图书馆（免费）、青森银行纪念馆（¥200）、以及<b>星巴克弘前公园前店</b>——旧第八师团长官舍改造，在百年军官官邸里喝咖啡。</p></div></div>
+      <div class="stop"><div class="t">12:00</div><div class="c"><b class="h">藤田纪念庭园 · 苹果派</b><p>从洋馆窗户能望到岩木山。馆内的大正浪漫咖啡室是<b>苹果派巡礼</b>的头号据点（市内有 50 多种）。</p><p><span class="tag">¥320</span></p></div></div>
+      <div class="stop"><div class="t">13:30</div><div class="c"><b class="h">弘前砖仓美术馆</b><p>明治砖造酒仓，田根刚改造：保留斑驳砖墙，屋顶铺一层泛金光的钛板。奈良美智曾三度在这里办展。</p><p><a class="tag" href="https://www.hirosaki-moca.jp/" target="_blank">官网</a><span class="tag">约 ¥1,300</span></p></div></div>
+      <div class="stop"><div class="t">15:00</div><div class="c"><b class="h">鹤之舞桥<span class="jp">可选</span></b><p>300 米长的木造三连拱桥，背景是岩木山。<b>该桥曾长期封闭，出发前务必确认</b>；不通就改去五所川原立佞武多之馆（室内，¥650，同在回青森路上）。</p></div></div>
+      <div class="leg">↓ 50–70 分 · 50 公里</div>
+      <div class="stop"><div class="t">17:30</div><div class="c"><b class="h">入住 · Dormy Inn 青森</b><p>青森站步行 10 分，13 楼顶层天然温泉。晚餐走到站前吃海鲜。<br><b>明早不含早餐</b>，现场补 ¥2,500/人，<b>供应到 09:00</b>。</p><p><a class="tag" href="tel:+81177215489">017-721-5489</a></p></div></div>
+    </div></details>
+
+    <details class="dc" data-day="5" style="--dc:#787774"><summary><div>
+      <div class="dn">D5<span>9/23 三</span></div>
+      <div class="dt2">睡魔之家 · A-FACTORY · 还车返京</div>
+      <div class="dm"><span class="tag">车程 30 分</span><span class="tag o">12:00 还车</span></div>
+    </div></summary><div class="body">
+      <div class="mapwrap mini" data-map="5"></div>
+      <div class="co y"><div class="ic">⏱</div><div class="bd"><p><b>还车 12:00</b>，正好 4 日租金，晚一点可能跳一档。7:00 早餐、8:45 退房，两个点各一小时，11:15 去加油。今天是宽裕的。</p></div></div>
+      <div class="stop"><div class="t">07:00</div><div class="c"><b class="h">早餐 → 8:45 退房</b><p>早餐供应到 <b>09:00</b>，7:00 去最从容。行李全部装车。</p></div></div>
+      <div class="stop"><div class="t">09:00</div><div class="c"><b class="h">睡魔之家 WA RASSE</b><p>常设四台当年真正上街游行的大型睡魔灯笼，每台高 5 米、宽 9 米。全室内。</p><p><span class="tag">约 ¥620</span></p></div></div>
+      <div class="stop"><div class="t">10:15</div><div class="c"><b class="h">A-FACTORY</b><p>隔壁的苹果酒工房 + 特产店，可试饮（开车的人不行）。<b>买多了从新青森站快递寄回东京</b>，大箱约 ¥2,000 次日到。</p></div></div>
+      <div class="stop"><div class="t">11:15</div><div class="c"><b class="h">加油 → 12:00 还车</b><p>加满油还车，保留收据。加油按钮认<b>「レギュラー」</b>（红色）。</p></div></div>
+      <div class="stop"><div class="t">13:30</div><div class="c"><b class="h">新青森 出发 → 17:00 东京</b><p>站内买伴手礼与铁路便当，预留 60 分钟。<b>别选傍晚班次</b>，连休最后一天下行最挤。</p></div></div>
+    </div></details>
+
+    <div class="co b"><div class="ic">🔑</div><div class="bd"><p>住十和田是为了 D3 早上到奥入濑只要 35 分钟；八甲田缆车 9:00 开门，正好当 D2 路上的内容。<b>全程零爬升</b>——山靠缆车、湖靠游船、溪流靠开车跳站。</p></div></div>
+  </div>
+</section>
+
+<!-- ============ 4 新干线 ============ -->
 <section class="slide" data-t="新干线">
-  <span class="pn">09 / 14</span>
+  <span class="pn">04 / 09</span>
   <div class="in">
     <h2>新干线</h2>
     <p class="sub">全程唯一没订的东西，也是最难抢的一段。</p>
@@ -524,7 +469,7 @@ svg[data-f] .deco{display:none}
         <li><b>回程 9/23 周三下午</b>——连休最后一天，13–19 点返程最挤</li>
         <li><b>4 人连座更难</b>，很可能只剩 2+2 分开</li>
       </ul>
-      <p><b>提高命中率</b>：① 事前受理登记<b>两三个备选班次</b>；② 接受 <b>2+2 分开坐</b>；③ 早班（6–7 点）比黄金时段好抢；④ <b>分段搜</b>——东京→仙台、仙台→新青森分开查，有时能拼出整段搜不到的余票。</p>
+      <p><b>提高命中率</b>：① 登记<b>两三个备选班次</b>；② 接受 <b>2+2 分开坐</b>；③ 早班（6–7 点）比黄金时段好抢；④ <b>分段搜</b>——东京→仙台、仙台→新青森分开查，有时能拼出整段搜不到的余票。</p>
     </div></div>
     <div class="co r"><div class="ic">⚠️</div><div class="bd">
       <p><b>误了车怎么办 —— 隼号没有自由座。</b></p>
@@ -536,9 +481,9 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 10 费用 -->
+<!-- ============ 5 费用 ============ -->
 <section class="slide" data-t="费用">
-  <span class="pn">10 / 14</span>
+  <span class="pn">05 / 09</span>
   <div class="in">
     <h2>费用</h2>
     <p class="sub">上面四项固定，下面三项可拖动调整，总额实时更新。</p>
@@ -547,7 +492,6 @@ svg[data-f] .deco{display:none}
       <div class="fixed"><span>🚄 新干线 ×4 <span class="tag r">估</span></span><b>¥142,960</b></div>
       <div class="fixed"><span>🚗 租车 4 日 <span class="tag g">已订</span></span><b>¥39,000</b></div>
       <div class="fixed"><span>⛽ 油 + 高速 + 停车 <span class="dim">估算</span></span><b>¥8,500</b></div>
-
       <div class="sl">
         <div class="row"><span class="nm">🍽 餐饮 5 天</span><span class="pp" id="v-food">¥26,500</span><span class="tt" id="t-food">4 人 ¥106,000</span></div>
         <input type="range" id="s-food" min="12000" max="50000" step="500" value="26500">
@@ -563,7 +507,6 @@ svg[data-f] .deco{display:none}
         <input type="range" id="s-gift" min="0" max="60000" step="1000" value="12000">
         <div class="hint">含从新青森站寄快递回东京</div>
       </div>
-
       <div class="grand">
         <div><div class="big" id="grand">¥569,040</div><div class="dim sm">4 人合计</div></div>
         <div style="text-align:right"><div class="per" id="perp">每人 ¥142,260</div><button class="btn" style="margin-top:6px" onclick="resetBudget()">恢复默认</button></div>
@@ -582,9 +525,9 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 11 车与行李 -->
+<!-- ============ 6 车与行李 ============ -->
 <section class="slide" data-t="车">
-  <span class="pn">11 / 14</span>
+  <span class="pn">06 / 09</span>
   <div class="in">
     <h2>车与行李</h2>
     <p class="sub">日产 Note e-POWER · 9/19–9/23 · ¥39,000 · 新青森站 12:00 取、12:00 还</p>
@@ -604,9 +547,9 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 12 关键提醒 -->
+<!-- ============ 7 提醒 ============ -->
 <section class="slide" data-t="提醒">
-  <span class="pn">12 / 14</span>
+  <span class="pn">07 / 09</span>
   <div class="in">
     <h2>关键提醒</h2>
     <p class="sub">五条不知道就会出事的。</p>
@@ -618,9 +561,9 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 13 出发前 -->
+<!-- ============ 8 清单 ============ -->
 <section class="slide" data-t="清单">
-  <span class="pn">13 / 14</span>
+  <span class="pn">08 / 09</span>
   <div class="in">
     <h2>出发前</h2>
     <p class="sub">勾选状态保存在本机浏览器。</p>
@@ -651,9 +594,9 @@ svg[data-f] .deco{display:none}
   </div>
 </section>
 
-<!-- 14 联络 -->
+<!-- ============ 9 联络 ============ -->
 <section class="slide" data-t="联络">
-  <span class="pn">14 / 14</span>
+  <span class="pn">09 / 09</span>
   <div class="in">
     <h2>电话与链接</h2>
     <p class="sub">点号码可直接拨打。</p>
@@ -678,6 +621,64 @@ svg[data-f] .deco{display:none}
 
 </div>
 
+<!-- 详细地图模板（不显示，供每日卡片克隆） -->
+<svg id="mapfull" viewBox="0 0 920 610" aria-hidden="true">
+  <defs>
+    <marker id="am2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d9730d"/></marker>
+    <marker id="am3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#448361"/></marker>
+    <marker id="am4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9065b0"/></marker>
+  </defs>
+  <path d="M370 0 L920 0 L920 92 Q 800 116 700 100 Q 610 86 530 106 Q 465 122 424 98 Q 392 82 370 44 Z" fill="var(--blue)"/>
+  <ellipse cx="578" cy="528" rx="52" ry="42" fill="var(--blue)"/>
+  <text class="ml s" x="578" y="533" text-anchor="middle">十和田湖</text>
+  <path d="M480 322 L502 292 L524 322 Z" fill="var(--gray)"/>
+
+  <g class="lay" data-day="1">
+    <polyline points="410,134 447,133 410,153" fill="none" stroke="#337ea9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="410" cy="134" r="5" fill="var(--bg)" stroke="#337ea9" stroke-width="2.5"/>
+    <text class="ml s" x="400" y="120" text-anchor="end">新青森站 取/还车</text>
+    <circle cx="410" cy="153" r="5" fill="#337ea9"/><text class="ml s" x="398" y="176" text-anchor="end">三内丸山 · 县美</text>
+    <rect x="429" y="120" width="18" height="18" rx="4" fill="#337ea9"/><text x="438" y="133.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
+    <text class="ml h" x="474" y="132">青森市 ①④</text>
+  </g>
+
+  <g class="lay" data-day="2">
+    <polyline points="447,133 480,210 545,300 560,321 546,334 524,330 570,370 608,402 669,491 780,440 844,374" fill="none" stroke="#d9730d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#am2)"/>
+    <circle cx="560" cy="321" r="5.5" fill="#d9730d"/><text class="ml" x="575" y="316">八甲田缆车</text>
+    <circle cx="546" cy="334" r="5" fill="#d9730d"/><text class="ml s" x="556" y="360">酸汤温泉</text>
+    <circle cx="524" cy="330" r="4.5" fill="#d9730d"/><text class="ml s" x="512" y="320" text-anchor="end">城仓大桥</text>
+    <circle cx="608" cy="402" r="5" fill="#d9730d"/><text class="ml s" x="622" y="400">茑沼</text>
+    <rect x="834" y="364" width="19" height="19" rx="4" fill="#d9730d"/><text x="843.5" y="378.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
+    <text class="ml h" x="826" y="358" text-anchor="end">十和田市 ②</text>
+  </g>
+
+  <g class="lay" data-day="3">
+    <polyline points="844,374 760,452 669,491 631,461 599,493 580,512 571,552 545,522 539,487 452,436 380,382 320,340 264,366 212,385" fill="none" stroke="#448361" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#am3)"/>
+    <circle cx="669" cy="491" r="4.5" fill="var(--bg)" stroke="#448361" stroke-width="2.5"/><text class="ml s" x="684" y="508">烧山（奥入濑入口）</text>
+    <circle cx="631" cy="461" r="5.5" fill="#448361"/><text class="ml" x="646" y="450">奥入濑 石户</text>
+    <circle cx="599" cy="493" r="4.5" fill="#448361"/><text class="ml s" x="588" y="486" text-anchor="end">铫子大瀑</text>
+    <circle cx="571" cy="552" r="5.5" fill="#448361"/><text class="ml s" x="571" y="580" text-anchor="middle">休屋 · 游览船</text>
+    <circle cx="539" cy="487" r="4.5" fill="#448361"/><text class="ml s" x="527" y="450" text-anchor="end">泷之泽展望台</text>
+    <circle cx="320" cy="340" r="5" fill="#448361"/><text class="ml s" x="320" y="326" text-anchor="middle">黑石 老街</text>
+    <rect x="203" y="376" width="19" height="19" rx="4" fill="#448361"/><text x="212.5" y="390.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
+    <text class="ml h" x="212" y="420" text-anchor="middle">弘前 ③</text>
+  </g>
+
+  <g class="lay" data-day="4">
+    <polyline points="212,385 174,318 152,232 262,178 362,144 447,133" fill="none" stroke="#9065b0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#am4)"/>
+    <circle cx="152" cy="232" r="5" fill="#9065b0"/><text class="ml s" x="168" y="228">鹤之舞桥</text>
+    <rect x="450" y="132" width="18" height="18" rx="4" fill="#9065b0"/><text x="459" y="145.5" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">4</text>
+    <text class="ml h" x="212" y="404" text-anchor="middle">弘前 ③</text>
+  </g>
+
+  <g class="lay" data-day="5">
+    <polyline points="447,133 410,140" fill="none" stroke="#787774" stroke-width="4" stroke-dasharray="7 6" stroke-linecap="round"/>
+    <circle cx="410" cy="140" r="5" fill="var(--bg)" stroke="#787774" stroke-width="2.5"/>
+    <text class="ml s" x="400" y="124" text-anchor="end">新青森站 还车</text>
+    <text class="ml h" x="474" y="150">青森市 ④</text>
+  </g>
+</svg>
+
 <script>
 if(window.NodeList&&!NodeList.prototype.forEach){NodeList.prototype.forEach=Array.prototype.forEach;}
 if(!Element.prototype.closest){Element.prototype.closest=function(s){var e=this;while(e){if(e.matches&&e.matches(s))return e;e=e.parentElement;}return null;};}
@@ -685,75 +686,86 @@ if(!Element.prototype.closest){Element.prototype.closest=function(s){var e=this;
   var deck=document.getElementById('deck'),
       slides=[].slice.call(deck.querySelectorAll('.slide')),
       rail=document.getElementById('rail'),
+      railzone=document.getElementById('railzone'),
       pgn=document.getElementById('pgn'),
-      map=document.getElementById('map');
+      mapov=document.getElementById('mapov'),
+      mapfull=document.getElementById('mapfull');
 
-  /* ---------- rail ---------- */
+  /* ---- rail ---- */
   slides.forEach(function(s,i){
     var b=document.createElement('button');
     b.innerHTML='<span class="lbl">'+s.dataset.t+'</span><i></i>';
     b.setAttribute('aria-label','第 '+(i+1)+' 页 '+s.dataset.t);
-    b.addEventListener('click',function(){
-      deck.scrollTo({top:s.offsetTop,behavior:'smooth'}); flash();
-    });
+    b.addEventListener('click',function(){deck.scrollTo({top:s.offsetTop,behavior:'smooth'});flash()});
     rail.appendChild(b);
   });
-  var dots=[].slice.call(rail.children), cur=-1;
+  var dots=[].slice.call(rail.children), cur=-1, hideT;
   function setCur(i){
-    if(i===cur) return; cur=i;
+    if(i===cur||i<0) return; cur=i;
     dots.forEach(function(d,j){d.setAttribute('aria-current',j===i?'true':'false')});
     pgn.textContent=(i+1)+' / '+slides.length;
   }
-  var hideT;
-  function flash(){
+  function flash(ms){
     rail.classList.add('show'); pgn.classList.add('show');
     clearTimeout(hideT);
-    hideT=setTimeout(function(){rail.classList.remove('show');pgn.classList.remove('show')},1600);
+    hideT=setTimeout(function(){rail.classList.remove('show');pgn.classList.remove('show')},ms||1500);
   }
+  railzone.addEventListener('touchstart',function(){flash(2600)},{passive:true});
+  railzone.addEventListener('mouseenter',function(){flash(2600)});
+  rail.addEventListener('mouseenter',function(){flash(2600)});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting) setCur(slides.indexOf(e.target)); });
-    },{root:deck,threshold:.5});
+    },{root:deck,threshold:.4});
     slides.forEach(function(s){io.observe(s)});
   }
   deck.addEventListener('scroll',function(){
     flash();
     if(!('IntersectionObserver' in window)){
-      var t=deck.scrollTop+deck.clientHeight/2, i=0;
+      var t=deck.scrollTop+deck.clientHeight/2,i=0;
       slides.forEach(function(s,j){ if(s.offsetTop<=t) i=j; });
       setCur(i);
     }
   },{passive:true});
-  setCur(0); flash();
+  setCur(0); flash(2200);
 
-  /* ---------- mini maps ---------- */
-  var VB={1:'290 70 370 180',2:'420 100 470 430',3:'150 290 740 330',4:'110 100 400 330',5:'330 80 320 150'};
-  document.querySelectorAll('.mapwrap[data-map]').forEach(function(w){
-    var d=w.dataset.map, c=map.cloneNode(true);
-    c.removeAttribute('id');
-    c.setAttribute('viewBox',VB[d]);
-    c.setAttribute('data-f',d);
-    c.querySelectorAll('marker').forEach(function(m){ m.id=m.id+'d'+d; });
+  /* ---- per-day mini maps (lazy) ---- */
+  var VB={1:'296 84 348 150',2:'424 104 462 420',3:'160 300 720 316',4:'116 108 392 320',5:'322 92 300 128'};
+  function buildMini(w){
+    if(w.dataset.done) return; w.dataset.done='1';
+    var d=w.dataset.map, vb=VB[d], k=Math.max(.75,Math.min(2.4,parseFloat(vb.split(' ')[2])*0.0024));
+    var c=mapfull.cloneNode(true);
+    c.removeAttribute('id'); c.removeAttribute('aria-hidden');
+    c.setAttribute('viewBox',vb); c.setAttribute('data-f',d);
+    c.style.display='block'; c.style.setProperty('--k',k.toFixed(2));
+    c.querySelectorAll('marker').forEach(function(m){m.id=m.id+'x'+d});
     c.querySelectorAll('[marker-end]').forEach(function(p){
-      p.setAttribute('marker-end',p.getAttribute('marker-end').replace(')','d'+d+')'));
+      p.setAttribute('marker-end',p.getAttribute('marker-end').replace(')','x'+d+')'));
     });
-    c.querySelectorAll('.lay').forEach(function(g){g.style.cursor='default'});
     w.appendChild(c);
-  });
-
-  /* ---------- main map day filter ---------- */
-  var tabs=document.getElementById('tabs');
-  function show(d){
-    tabs.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.d===d?'true':'false')});
-    if(d==='all'){ map.removeAttribute('data-f'); map.setAttribute('viewBox','0 0 920 610'); }
-    else { map.setAttribute('data-f',d); map.setAttribute('viewBox',VB[d]); }
   }
-  tabs.addEventListener('click',function(e){var b=e.target.closest('button'); if(b) show(b.dataset.d)});
-  map.querySelectorAll('.lay').forEach(function(g){
-    g.addEventListener('click',function(){var d=g.dataset.day; show(map.getAttribute('data-f')===d?'all':d)});
+  document.querySelectorAll('.dc').forEach(function(dc){
+    dc.addEventListener('toggle',function(){
+      if(dc.open){ var w=dc.querySelector('.mapwrap[data-map]'); if(w) buildMini(w); }
+    });
   });
 
-  /* ---------- budget ---------- */
+  /* ---- overview filter ---- */
+  var keys=document.getElementById('keys');
+  function show(d){
+    keys.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.d===d?'true':'false')});
+    if(d==='all') mapov.removeAttribute('data-f'); else mapov.setAttribute('data-f',d);
+  }
+  keys.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    show(b.dataset.d);
+    if(b.dataset.d!=='all'){
+      var dc=document.querySelector('.dc[data-day="'+b.dataset.d+'"]');
+      if(dc){ dc.open=true; setTimeout(function(){dc.scrollIntoView({behavior:'smooth',block:'nearest'})},60); }
+    }
+  });
+
+  /* ---- budget ---- */
   var FIXED=184060+142960+39000+8500, DEF={food:26500,tkt:10130,gift:12000};
   function yen(n){return '¥'+n.toLocaleString('en-US')}
   function calc(){
@@ -769,13 +781,12 @@ if(!Element.prototype.closest){Element.prototype.closest=function(s){var e=this;
   }
   ['food','tkt','gift'].forEach(function(k){document.getElementById('s-'+k).addEventListener('input',calc)});
   window.resetBudget=function(){
-    ['food','tkt','gift'].forEach(function(k){document.getElementById('s-'+k).value=DEF[k]});
-    calc();
+    ['food','tkt','gift'].forEach(function(k){document.getElementById('s-'+k).value=DEF[k]}); calc();
   };
   calc();
 
-  /* ---------- checklist ---------- */
-  var KEY='aomori26d.';
+  /* ---- checklist ---- */
+  var KEY='aomori26e.';
   document.querySelectorAll('.ck input[type=checkbox]').forEach(function(cb){
     var k=KEY+cb.id;
     try{ if(localStorage.getItem(k)==='1') cb.checked=true; }catch(e){}
@@ -786,7 +797,6 @@ if(!Element.prototype.closest){Element.prototype.closest=function(s){var e=this;
     el.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.checked=false;try{localStorage.removeItem(KEY+cb.id)}catch(e){}});
   };
 
-  /* ---------- keyboard ---------- */
   document.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'||e.key==='PageDown'){ if(cur<slides.length-1){e.preventDefault();deck.scrollTo({top:slides[cur+1].offsetTop,behavior:'smooth'})} }
     if(e.key==='ArrowUp'||e.key==='PageUp'){ if(cur>0){e.preventDefault();deck.scrollTo({top:slides[cur-1].offsetTop,behavior:'smooth'})} }
