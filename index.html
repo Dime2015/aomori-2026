@@ -171,6 +171,28 @@ svg[data-f="5"] .lay:not([data-day="5"]){opacity:.13}
 .grand .big{font-size:29px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
 .grand .per{font-size:14px;color:var(--text2);font-variant-numeric:tabular-nums}
 
+/* 结算：每日流水条目 */
+.ehead{display:flex;justify-content:space-between;align-items:baseline;padding:9px 12px 5px;font-weight:600;font-size:14px}
+.ehead .n{font-variant-numeric:tabular-nums;color:var(--text2);font-weight:500;font-size:13px}
+.eitem{display:flex;align-items:baseline;gap:8px;padding:7px 12px;border-top:1px solid var(--line);font-size:13.5px}
+.eitem .en{flex:1;min-width:0}
+.eitem .ec{font-size:11px;color:var(--text3);margin-left:6px;white-space:nowrap}
+.eitem .ea{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.eitem .ep{font-size:11px;color:var(--text3);width:38px;text-align:right;flex:none}
+
+/* 结算：饼图 */
+.dwrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.donut{width:104px;height:104px;flex:none;position:relative}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10.5px;color:var(--text3);text-align:center;line-height:1.3}
+.donut .ctr b{font-size:13px;color:var(--text);font-variant-numeric:tabular-nums}
+.dleg{flex:1;min-width:150px;font-size:13px}
+.dleg .row{display:flex;align-items:center;gap:7px;padding:3px 0}
+.dleg .sw{width:10px;height:10px;border-radius:2px;flex:none}
+.dleg .lb{flex:1;min-width:0}
+.dleg .row b{margin-left:8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dleg .pc{color:var(--text3);font-size:11.5px;width:34px;text-align:right;flex:none}
+
 .ck{list-style:none;margin:6px 0;padding:0}
 .ck li{display:flex;gap:10px;padding:5px 0;align-items:flex-start}
 .ck li.h{display:block;font-size:11.5px;letter-spacing:.06em;color:var(--text3);margin:13px 0 0;font-weight:600}
@@ -245,22 +267,102 @@ svg[data-f="5"] .lay:not([data-day="5"]){opacity:.13}
       </table></div>
     </details>
 
-    <details><summary><b>每日流水（¥114,860）</b></summary>
-      <div class="tw"><table>
-        <thead><tr><th>日期</th><th>项目</th><th class="n">金额</th><th>付款人</th></tr></thead>
-        <tbody>
-          <tr><td>9/19</td><td>海鲜饭 8,800、灯展门票 2,480、A-FACTORY 停车 310、海鲜饭停车 300</td><td class="n">¥11,890</td><td>海鲜饭=Yang<br>其余=Pan</td></tr>
-          <tr><td>9/20</td><td>缆车 10,000、温泉 4,000、午饭 10,100、美术馆门票 7,200、牛奶 1,120、晚饭 8,580</td><td class="n">¥41,000</td><td>牛奶=Yang<br>其余=Pan</td></tr>
-          <tr><td>9/21</td><td>苹果派 4,450、午饭姬鳟 9,200、住宿税 800、停车 600、晚饭乡土料理 10,250、夜宵拉面 4,200</td><td class="n">¥29,500</td><td>晚饭+夜宵=Yang<br>其余=Pan</td></tr>
-          <tr><td>9/22</td><td>停车 500、门票 2,080、汉堡肉 6,640、苹果汁 1,600、晚饭 12,560</td><td class="n">¥23,380</td><td>停车=Yang<br>苹果汁=Yang<br>其余=Pan</td></tr>
-          <tr><td>9/23</td><td>遗址门票 2,000、美术馆门票 2,800、午饭 4,290</td><td class="n">¥9,090</td><td>Pan</td></tr>
-          <tr class="tot"><td colspan="2">小计</td><td class="n">¥114,860</td><td></td></tr>
-        </tbody>
-      </table></div>
-    </details>
+    <details open><summary><b>每日流水（¥114,860）· 按大项 / 按天 / 按付款人</b></summary>
+      <div class="dwrap">
+        <div class="donut">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--line)" stroke-width="4"/>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#d9730d" stroke-width="4" stroke-dasharray="71.208 28.792" stroke-dashoffset="0.000"><title>饮食 ¥81,790（71.2%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#337ea9" stroke-width="4" stroke-dasharray="26.606 73.394" stroke-dashoffset="-71.208"><title>门票/体验 ¥30,560（26.6%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#448361" stroke-width="4" stroke-dasharray="0.966 99.034" stroke-dashoffset="-97.815"><title>交通/停车 ¥1,110（1.0%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#9065b0" stroke-width="4" stroke-dasharray="1.219 98.781" stroke-dashoffset="-98.781"><title>住宿杂费 ¥1,400（1.2%）</title></circle>
+          </svg>
+          <div class="ctr">按大项<br><b>¥114,860</b></div>
+        </div>
+        <div class="dleg">
+          <div class="row"><span class="sw" style="background:#d9730d"></span><span class="lb">饮食</span><span class="pc">71%</span><b>¥81,790</b></div>
+          <div class="row"><span class="sw" style="background:#337ea9"></span><span class="lb">门票/体验</span><span class="pc">27%</span><b>¥30,560</b></div>
+          <div class="row"><span class="sw" style="background:#448361"></span><span class="lb">交通/停车</span><span class="pc">1%</span><b>¥1,110</b></div>
+          <div class="row"><span class="sw" style="background:#9065b0"></span><span class="lb">住宿杂费</span><span class="pc">1%</span><b>¥1,400</b></div>
+        </div>
+      </div>
 
-    <div class="co y"><div class="ic">🧮</div><div class="bd"><p>统一按 <b>Pan 和 Yang 各一半</b> 分摊，不按谁吃了多少细算——比如 9/22 那笔苹果汁 ¥1,600 是 Yang 付的，主要是 Yang 喝的，也整笔算进公共池均分，不单独扣算。</p></div></div>
-    <div class="co g"><div class="ic">🧾</div><div class="bd"><p><b>已用小票核对</b>：住宿三家（青森 / 十和田 / 弘前）、Dormy Inn、八甲田缆车、两次加油、租车、9/23 午饭，共 9 张小票，金额与账目全部吻合。<br><b>不进公共池</b>：さくらはうす苹果磁贴 ¥1,100，是 Yang 自己的消费。</p></div></div>
+      <div class="dwrap">
+        <div class="donut">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--line)" stroke-width="4"/>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#337ea9" stroke-width="4" stroke-dasharray="10.352 89.648" stroke-dashoffset="0.000"><title>9/19 ¥11,890（10.4%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#d9730d" stroke-width="4" stroke-dasharray="35.696 64.304" stroke-dashoffset="-10.352"><title>9/20 ¥41,000（35.7%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#448361" stroke-width="4" stroke-dasharray="25.683 74.317" stroke-dashoffset="-46.047"><title>9/21 ¥29,500（25.7%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#9065b0" stroke-width="4" stroke-dasharray="20.355 79.645" stroke-dashoffset="-71.731"><title>9/22 ¥23,380（20.4%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#787774" stroke-width="4" stroke-dasharray="7.914 92.086" stroke-dashoffset="-92.086"><title>9/23 ¥9,090（7.9%）</title></circle>
+          </svg>
+          <div class="ctr">按天<br><b>¥114,860</b></div>
+        </div>
+        <div class="dleg">
+          <div class="row"><span class="sw" style="background:#337ea9"></span><span class="lb">9/19</span><span class="pc">10%</span><b>¥11,890</b></div>
+          <div class="row"><span class="sw" style="background:#d9730d"></span><span class="lb">9/20</span><span class="pc">36%</span><b>¥41,000</b></div>
+          <div class="row"><span class="sw" style="background:#448361"></span><span class="lb">9/21</span><span class="pc">26%</span><b>¥29,500</b></div>
+          <div class="row"><span class="sw" style="background:#9065b0"></span><span class="lb">9/22</span><span class="pc">20%</span><b>¥23,380</b></div>
+          <div class="row"><span class="sw" style="background:#787774"></span><span class="lb">9/23</span><span class="pc">8%</span><b>¥9,090</b></div>
+        </div>
+      </div>
+
+      <div class="dwrap">
+        <div class="donut">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--line)" stroke-width="4"/>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#337ea9" stroke-width="4" stroke-dasharray="76.955 23.045" stroke-dashoffset="0.000"><title>Pan ¥88,390（77.0%）</title></circle>
+            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#d9730d" stroke-width="4" stroke-dasharray="23.045 76.955" stroke-dashoffset="-76.955"><title>Yang ¥26,470（23.0%）</title></circle>
+          </svg>
+          <div class="ctr">按付款人<br><b>¥114,860</b></div>
+        </div>
+        <div class="dleg">
+          <div class="row"><span class="sw" style="background:#337ea9"></span><span class="lb">Pan</span><span class="pc">77%</span><b>¥88,390</b></div>
+          <div class="row"><span class="sw" style="background:#d9730d"></span><span class="lb">Yang</span><span class="pc">23%</span><b>¥26,470</b></div>
+        </div>
+      </div>
+
+      <div class="dc" style="--dc:#337ea9">
+        <div class="ehead"><span>9/19</span><span class="n">¥11,890</span></div>
+        <div class="eitem"><span class="en">海鲜饭<span class="ec">饮食</span></span><span class="ea">¥8,800</span><span class="ep">Yang</span></div>
+        <div class="eitem"><span class="en">灯展门票<span class="ec">门票/体验</span></span><span class="ea">¥2,480</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">A-FACTORY 停车<span class="ec">交通/停车</span></span><span class="ea">¥310</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">海鲜饭停车<span class="ec">交通/停车</span></span><span class="ea">¥300</span><span class="ep">Pan</span></div>
+      </div>
+      <div class="dc" style="--dc:#d9730d">
+        <div class="ehead"><span>9/20</span><span class="n">¥41,000</span></div>
+        <div class="eitem"><span class="en">缆车<span class="ec">门票/体验</span></span><span class="ea">¥10,000</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">温泉<span class="ec">门票/体验</span></span><span class="ea">¥4,000</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">午饭<span class="ec">饮食</span></span><span class="ea">¥10,100</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">美术馆门票<span class="ec">门票/体验</span></span><span class="ea">¥7,200</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">牛奶<span class="ec">饮食</span></span><span class="ea">¥1,120</span><span class="ep">Yang</span></div>
+        <div class="eitem"><span class="en">晚饭<span class="ec">饮食</span></span><span class="ea">¥8,580</span><span class="ep">Pan</span></div>
+      </div>
+      <div class="dc" style="--dc:#448361">
+        <div class="ehead"><span>9/21</span><span class="n">¥29,500</span></div>
+        <div class="eitem"><span class="en">苹果派<span class="ec">饮食</span></span><span class="ea">¥4,450</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">午饭姬鳟<span class="ec">饮食</span></span><span class="ea">¥9,200</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">住宿税<span class="ec">住宿杂费</span></span><span class="ea">¥800</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">停车（弘前酒店）<span class="ec">住宿杂费</span></span><span class="ea">¥600</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">晚饭乡土料理<span class="ec">饮食</span></span><span class="ea">¥10,250</span><span class="ep">Yang</span></div>
+        <div class="eitem"><span class="en">夜宵拉面<span class="ec">饮食</span></span><span class="ea">¥4,200</span><span class="ep">Yang</span></div>
+      </div>
+      <div class="dc" style="--dc:#9065b0">
+        <div class="ehead"><span>9/22</span><span class="n">¥23,380</span></div>
+        <div class="eitem"><span class="en">停车<span class="ec">交通/停车</span></span><span class="ea">¥500</span><span class="ep">Yang</span></div>
+        <div class="eitem"><span class="en">门票<span class="ec">门票/体验</span></span><span class="ea">¥2,080</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">汉堡肉<span class="ec">饮食</span></span><span class="ea">¥6,640</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">苹果汁<span class="ec">饮食</span></span><span class="ea">¥1,600</span><span class="ep">Yang</span></div>
+        <div class="eitem"><span class="en">晚饭<span class="ec">饮食</span></span><span class="ea">¥12,560</span><span class="ep">Pan</span></div>
+      </div>
+      <div class="dc" style="--dc:#787774">
+        <div class="ehead"><span>9/23</span><span class="n">¥9,090</span></div>
+        <div class="eitem"><span class="en">遗址门票<span class="ec">门票/体验</span></span><span class="ea">¥2,000</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">美术馆门票<span class="ec">门票/体验</span></span><span class="ea">¥2,800</span><span class="ep">Pan</span></div>
+        <div class="eitem"><span class="en">午饭<span class="ec">饮食</span></span><span class="ea">¥4,290</span><span class="ep">Pan</span></div>
+      </div>
+    </details>
   </div>
 </section>
 
